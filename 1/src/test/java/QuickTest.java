@@ -1,5 +1,8 @@
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.ios.IOSElement;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.IOSMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import org.apache.http.HttpHeaders;
@@ -17,51 +20,102 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static com.google.gson.internal.bind.TypeAdapters.URL;
 
 public class QuickTest {
 
 
     private String accessKey = "eyJ4cC51IjoyLCJ4cC5wIjoxLCJ4cC5tIjoiTVRVMU56ZzBOVE14TWpFeU1nIiwiYWxnIjoiSFMyNTYifQ.eyJleHAiOjE4NzM4NzM3MDEsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.7atGXsjevGa3XwIbFUXPcZDiW498w0LkzqlYz1xBv8w";
-    protected IOSDriver<IOSElement> driver = null;
+    protected IOSDriver<IOSElement> iosDriver = null;
+    protected AndroidDriver<AndroidElement> androidDriver = null;
+
     DesiredCapabilities dc = new DesiredCapabilities();
     private String uid = System.getenv("deviceID");
-    private String os = System.getenv("deviceID");
+    private String os = System.getenv("deviceOS");
     private String status = "failed";
 
 
     @Before
     public void setUp() throws MalformedURLException {
-        dc.setCapability("testName", "Quick Start iOS Native Demo");
+        dc.setCapability("testName", "Cleanup Webhook Test");
         dc.setCapability("accessKey", accessKey);
         dc.setCapability("deviceQuery", "@serialnumber='" + uid + "'");
-        dc.setCapability(IOSMobileCapabilityType.BUNDLE_ID, "com.experitest.ExperiBank");
-        driver = new IOSDriver<>(new URL("https://mastercloud.experitest.com/wd/hub"), dc);
+        if (os.equals("iOS")){
+            iOSDriver();
+        }
+        if (os.equals("Android")){
+            androidDriver();
+        }
     }
 
     @Test
     public void quickStartiOSNativeDemo() {
-        driver.rotate(ScreenOrientation.PORTRAIT);
-        driver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
-        driver.hideKeyboard();
-        driver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
-        driver.findElement(By.xpath("//*[@id='loginButton']")).click();
-        driver.findElement(By.xpath("//*[@id='makePaymentButton']")).click();
-        driver.findElement(By.xpath("//*[@id='phoneTextField']")).sendKeys("0541234567");
-        driver.findElement(By.xpath("//*[@id='nameTextField']")).sendKeys("Jon Snow");
-        driver.findElement(By.xpath("//*[@id='amountTextField']")).sendKeys("50");
-        driver.findElement(By.xpath("//*[@id='countryButton']")).click();
-        driver.findElement(By.xpath("//*[@id='Switzerland']")).click();
-        driver.findElement(By.xpath("//*[@id='sendPaymentButton']")).click();
-        driver.findElement(By.xpath("//*[@id='Yes']")).click();
-        status = "passed";
+        if (os.equals("iOS")){
+            iOSTest();
+        }
+        if (os.equals("Android")){
+            androidTest();
+        }
     }
 
     @After
     public void tearDown() {
         sendResponseToCloud();
-        System.out.println("Report URL: " + driver.getCapabilities().getCapability("reportUrl"));
-        driver.quit();
+        System.out.println("Report URL: " + iosDriver.getCapabilities().getCapability("reportUrl"));
+        iosDriver.quit();
+    }
+
+
+    private void iOSDriver() {
+        dc.setCapability(IOSMobileCapabilityType.BUNDLE_ID, "com.experitest.ExperiBank");
+        try {
+            iosDriver = new IOSDriver<>(new URL("https://mastercloud.experitest.com/wd/hub"), dc);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void androidDriver() {
+        dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.experitest.ExperiBank");
+        dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".LoginActivity");
+        try {
+            androidDriver = new AndroidDriver<>(new URL("https://mastercloud.experitest.com/wd/hub"), dc);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void androidTest() {
+        androidDriver.rotate(ScreenOrientation.PORTRAIT);
+        androidDriver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
+        androidDriver.hideKeyboard();
+        androidDriver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
+        androidDriver.findElement(By.xpath("//*[@id='loginButton']")).click();
+        androidDriver.findElement(By.xpath("//*[@id='makePaymentButton']")).click();
+        androidDriver.findElement(By.xpath("//*[@id='phoneTextField']")).sendKeys("0541234567");
+        androidDriver.findElement(By.xpath("//*[@id='nameTextField']")).sendKeys("Jon Snow");
+        androidDriver.findElement(By.xpath("//*[@id='amountTextField']")).sendKeys("50");
+        androidDriver.findElement(By.xpath("//*[@id='countryButton']")).click();
+        androidDriver.findElement(By.xpath("//*[@text='Switzerland']")).click();
+        androidDriver.findElement(By.xpath("//*[@id='sendPaymentButton']")).click();
+        androidDriver.findElement(By.xpath("//*[@text='Yes']")).click();
+        status = "passed";
+    }
+
+    private void iOSTest() {
+        iosDriver.rotate(ScreenOrientation.PORTRAIT);
+        iosDriver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
+        iosDriver.hideKeyboard();
+        iosDriver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
+        iosDriver.findElement(By.xpath("//*[@id='loginButton']")).click();
+        iosDriver.findElement(By.xpath("//*[@id='makePaymentButton']")).click();
+        iosDriver.findElement(By.xpath("//*[@id='phoneTextField']")).sendKeys("0541234567");
+        iosDriver.findElement(By.xpath("//*[@id='nameTextField']")).sendKeys("Jon Snow");
+        iosDriver.findElement(By.xpath("//*[@id='amountTextField']")).sendKeys("50");
+        iosDriver.findElement(By.xpath("//*[@id='countryButton']")).click();
+        iosDriver.findElement(By.xpath("//*[@id='Switzerland']")).click();
+        iosDriver.findElement(By.xpath("//*[@id='sendPaymentButton']")).click();
+        iosDriver.findElement(By.xpath("//*[@id='Yes']")).click();
+        status = "passed";
     }
 
     private void sendResponseToCloud() {
