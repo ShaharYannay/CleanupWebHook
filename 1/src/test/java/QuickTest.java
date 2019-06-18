@@ -30,7 +30,7 @@ public class QuickTest {
 
     DesiredCapabilities dc = new DesiredCapabilities();
     private String uid = System.getenv("deviceID");
-    private String os = System.getenv("deviceOs");
+    private String os = System.getenv("deviceOS");
     private String status = "failed";
 
 
