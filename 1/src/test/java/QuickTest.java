@@ -30,7 +30,7 @@ public class QuickTest {
 
     DesiredCapabilities dc = new DesiredCapabilities();
     private String uid = System.getenv("deviceID");
-    private String os = System.getenv("deviceOS");
+    private String os = System.getenv("deviceOs");
     private String status = "failed";
 
 
@@ -38,6 +38,7 @@ public class QuickTest {
     public void setUp() throws MalformedURLException {
         dc.setCapability("testName", "Cleanup Webhook Test");
         dc.setCapability("accessKey", accessKey);
+        dc.setCapability("releaseDevice", false);
         dc.setCapability("deviceQuery", "@serialnumber='" + uid + "'");
         if (os.equals("iOS")){
             iOSDriver();
@@ -59,9 +60,16 @@ public class QuickTest {
 
     @After
     public void tearDown() {
+        if (iosDriver!=null) {
+            System.out.println("Report URL: " + iosDriver.getCapabilities().getCapability("reportUrl"));
+            iosDriver.quit();
+        }
+        if (androidDriver!=null) {
+            System.out.println("Report URL: " + androidDriver.getCapabilities().getCapability("reportUrl"));
+            androidDriver.quit();
+        }
+
         sendResponseToCloud();
-        System.out.println("Report URL: " + iosDriver.getCapabilities().getCapability("reportUrl"));
-        iosDriver.quit();
     }
 
 
