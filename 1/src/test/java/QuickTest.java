@@ -63,7 +63,7 @@ public class QuickTest {
         dc.setCapability("testName", "Cleanup Webhook Test");
         dc.setCapability("accessKey", accessKey);
         dc.setCapability("releaseDevice", "false");
-        dc.setCapability("deviceQuery", "@os='" + os + "'");
+        dc.setCapability("deviceQuery", "@serialnumber='" + uid + "'");
         if (os.equals("iOS")){
             iOSDriver();
         }
