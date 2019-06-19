@@ -88,11 +88,11 @@ public class QuickTest {
 
         if (iosDriver!=null) {
             System.out.println("Report URL: " + iosDriver.getCapabilities().getCapability("reportUrl"));
-            iosDriver.quit();
+//            iosDriver.quit();
         }
         if (androidDriver!=null) {
             System.out.println("Report URL: " + androidDriver.getCapabilities().getCapability("reportUrl"));
-            androidDriver.quit();
+//            androidDriver.quit();
         }
 
         writer.close();
