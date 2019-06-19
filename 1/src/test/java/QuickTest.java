@@ -42,7 +42,7 @@ public class QuickTest {
     private String username = System.getenv("username");
     private String userProject = System.getenv("userProject");
     private String status = "failed";
-    PrintWriter writer = new PrintWriter(deviceName + "-" + uid, "UTF-8");
+    PrintWriter writer = new PrintWriter(deviceName + "_" + uid + ".txt", "UTF-8");
 
     public QuickTest() throws FileNotFoundException, UnsupportedEncodingException {
     }
@@ -50,8 +50,15 @@ public class QuickTest {
 
     @Before
     public void setUp() throws MalformedURLException {
-        writer.println("The first line");
-        writer.println("The second line");
+        writer.println("uid: " + uid);
+        writer.println("os: " + os);
+        writer.println("deviceName: " + deviceName);
+        writer.println("osVersion: " + osVersion);
+        writer.println("deviceModel: " + deviceModel);
+        writer.println("deviceManufacturer: " + deviceManufacturer);
+        writer.println("deviceCategory: " + deviceCategory);
+        writer.println("username: " + username);
+        writer.println("userProject: " + userProject);
 
         dc.setCapability("testName", "Cleanup Webhook Test");
         dc.setCapability("accessKey", accessKey);
