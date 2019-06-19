@@ -27,7 +27,7 @@ import java.net.URL;
 public class QuickTest {
 
 
-    private String accessKey = "eyJ4cC51IjoxMjYsInhwLnAiOjU0LCJ4cC5tIjoiTVRVME16a3lNVGd3TkRjek5RIiwiYWxnIjoiSFMyNTYifQ.eyJleHAiOjE4NzYzMTE4NzQsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.c-KKYE-oJns1oS8GvK1Rbuefgw_Q6YiAvX7LImC1D707atGXsjevGa3XwIbFUXPcZDiW498w0LkzqlYz1xBv8w";
+    private String accessKey = "eyJ4cC51IjoyLCJ4cC5wIjoxLCJ4cC5tIjoiTVRVMU56ZzBOVE14TWpFeU1nIiwiYWxnIjoiSFMyNTYifQ.eyJleHAiOjE4NzM4NzM3MDEsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.7atGXsjevGa3XwIbFUXPcZDiW498w0LkzqlYz1xBv8w";
     protected IOSDriver<IOSElement> iosDriver = null;
     protected AndroidDriver<AndroidElement> androidDriver = null;
 
@@ -49,27 +49,19 @@ public class QuickTest {
 
 
     @Before
-    public void setUp() throws MalformedURLException {
-        writer.println("uid: " + uid);
-        writer.println("os: " + os);
-        writer.println("deviceName: " + deviceName);
-        writer.println("osVersion: " + osVersion);
-        writer.println("deviceModel: " + deviceModel);
-        writer.println("deviceManufacturer: " + deviceManufacturer);
-        writer.println("deviceCategory: " + deviceCategory);
-        writer.println("username: " + username);
-        writer.println("userProject: " + userProject);
-
+    public void setUp() throws Exception {
+        printParameters();
         dc.setCapability("testName", "Cleanup Webhook Test");
         dc.setCapability("accessKey", accessKey);
         dc.setCapability("releaseDevice", false);
         dc.setCapability("deviceQuery", "@serialnumber='" + uid + "'");
-        if (os.equals("iOS")){
-            iOSDriver();
-        }
-        if (os.equals("Android")){
-            androidDriver();
-        }
+        throw new Exception();
+//        if (os.equals("iOS")){
+//            iOSDriver();
+//        }
+//        if (os.equals("Android")){
+//            androidDriver();
+//        }
     }
 
     @Test
@@ -159,5 +151,18 @@ public class QuickTest {
         try (CloseableHttpClient httpClient = HttpClients.createDefault();
              CloseableHttpResponse response = httpClient.execute(post)) {
         } catch (Exception ignore){ }
+    }
+
+    private void printParameters(){
+        writer.println("uid: " + uid);
+        writer.println("os: " + os);
+        writer.println("deviceName: " + deviceName);
+        writer.println("osVersion: " + osVersion);
+        writer.println("deviceModel: " + deviceModel);
+        writer.println("deviceManufacturer: " + deviceManufacturer);
+        writer.println("deviceCategory: " + deviceCategory);
+        writer.println("username: " + username);
+        writer.println("userProject: " + userProject);
+
     }
 }
