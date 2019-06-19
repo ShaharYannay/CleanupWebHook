@@ -63,7 +63,7 @@ public class QuickTest {
         dc.setCapability("testName", "Cleanup Webhook Test");
         dc.setCapability("accessKey", accessKey);
         dc.setCapability("releaseDevice", "false");
-        dc.setCapability("deviceQuery", "@serialnumber='" + uid + "'");
+        dc.setCapability("deviceQuery", "@os='" + os + "'");
         if (os.equals("iOS")){
             iOSDriver();
         }
@@ -88,11 +88,11 @@ public class QuickTest {
 
         if (iosDriver!=null) {
             System.out.println("Report URL: " + iosDriver.getCapabilities().getCapability("reportUrl"));
-//            iosDriver.quit();
+            iosDriver.quit();
         }
         if (androidDriver!=null) {
             System.out.println("Report URL: " + androidDriver.getCapabilities().getCapability("reportUrl"));
-//            androidDriver.quit();
+            androidDriver.quit();
         }
 
         writer.close();
