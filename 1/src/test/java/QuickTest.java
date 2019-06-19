@@ -55,7 +55,6 @@ public class QuickTest {
         dc.setCapability("accessKey", accessKey);
         dc.setCapability("releaseDevice", false);
         dc.setCapability("deviceQuery", "@serialnumber='" + uid + "'");
-        throw new Exception();
         if (os.equals("iOS")){
             iOSDriver();
         }
