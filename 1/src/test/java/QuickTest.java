@@ -27,7 +27,7 @@ import java.net.URL;
 public class QuickTest {
 
 
-    private String accessKey = "eyJ4cC51IjoyLCJ4cC5wIjoxLCJ4cC5tIjoiTVRVMU56ZzBOVE14TWpFeU1nIiwiYWxnIjoiSFMyNTYifQ.eyJleHAiOjE4NzM4NzM3MDEsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.7atGXsjevGa3XwIbFUXPcZDiW498w0LkzqlYz1xBv8w";
+    private String accessKey = "eyJ4cC51IjoxMjYsInhwLnAiOjU0LCJ4cC5tIjoiTVRVME16a3lNVGd3TkRjek5RIiwiYWxnIjoiSFMyNTYifQ.eyJleHAiOjE4NzYzMTE4NzQsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.c-KKYE-oJns1oS8GvK1Rbuefgw_Q6YiAvX7LImC1D707atGXsjevGa3XwIbFUXPcZDiW498w0LkzqlYz1xBv8w";
     protected IOSDriver<IOSElement> iosDriver = null;
     protected AndroidDriver<AndroidElement> androidDriver = null;
 
