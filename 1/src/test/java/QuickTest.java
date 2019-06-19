@@ -17,6 +17,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.ScreenOrientation;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -31,11 +34,25 @@ public class QuickTest {
     DesiredCapabilities dc = new DesiredCapabilities();
     private String uid = System.getenv("deviceID");
     private String os = System.getenv("deviceOS");
+    private String deviceName = System.getenv("deviceName");
+    private String osVersion = System.getenv("osVersion");
+    private String deviceModel = System.getenv("deviceModel");
+    private String deviceManufacturer = System.getenv("deviceManufacturer");
+    private String deviceCategory = System.getenv("deviceCategory");
+    private String username = System.getenv("username");
+    private String userProject = System.getenv("userProject");
     private String status = "failed";
+    PrintWriter writer = new PrintWriter(deviceName + "-" + uid, "UTF-8");
+
+    public QuickTest() throws FileNotFoundException, UnsupportedEncodingException {
+    }
 
 
     @Before
     public void setUp() throws MalformedURLException {
+        writer.println("The first line");
+        writer.println("The second line");
+
         dc.setCapability("testName", "Cleanup Webhook Test");
         dc.setCapability("accessKey", accessKey);
         dc.setCapability("releaseDevice", false);
@@ -70,6 +87,7 @@ public class QuickTest {
         }
 
         sendResponseToCloud();
+        writer.close();
     }
 
 
