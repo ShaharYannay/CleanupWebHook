@@ -56,12 +56,12 @@ public class QuickTest {
         dc.setCapability("releaseDevice", false);
         dc.setCapability("deviceQuery", "@serialnumber='" + uid + "'");
         throw new Exception();
-//        if (os.equals("iOS")){
-//            iOSDriver();
-//        }
-//        if (os.equals("Android")){
-//            androidDriver();
-//        }
+        if (os.equals("iOS")){
+            iOSDriver();
+        }
+        if (os.equals("Android")){
+            androidDriver();
+        }
     }
 
     @Test
