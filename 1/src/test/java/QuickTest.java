@@ -31,7 +31,6 @@ public class QuickTest {
     protected IOSDriver<IOSElement> iosDriver = null;
     protected AndroidDriver<AndroidElement> androidDriver = null;
 
-    DesiredCapabilities dc = new DesiredCapabilities();
     private String uid = System.getenv("deviceID");
     private String os = System.getenv("deviceOS");
     private String deviceName = System.getenv("deviceName");
@@ -41,6 +40,8 @@ public class QuickTest {
     private String deviceCategory = System.getenv("deviceCategory");
     private String username = System.getenv("username");
     private String userProject = System.getenv("userProject");
+
+    DesiredCapabilities dc = new DesiredCapabilities();
     private String status = "failed";
     PrintWriter writer = new PrintWriter(deviceName + "_" + uid + ".txt", "UTF-8");
 
@@ -64,13 +65,8 @@ public class QuickTest {
     }
 
     @Test
-    public void quickStartiOSNativeDemo() {
-        if (os.equals("iOS")){
-            iOSTest();
-        }
-        if (os.equals("Android")){
-            androidTest();
-        }
+    public void quickStartNativeDemo() {
+        status="passed";
     }
 
     @After
@@ -107,40 +103,6 @@ public class QuickTest {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-    }
-
-    private void androidTest() {
-        androidDriver.rotate(ScreenOrientation.PORTRAIT);
-        androidDriver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
-        androidDriver.hideKeyboard();
-        androidDriver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
-        androidDriver.findElement(By.xpath("//*[@id='loginButton']")).click();
-        androidDriver.findElement(By.xpath("//*[@id='makePaymentButton']")).click();
-        androidDriver.findElement(By.xpath("//*[@id='phoneTextField']")).sendKeys("0541234567");
-        androidDriver.findElement(By.xpath("//*[@id='nameTextField']")).sendKeys("Jon Snow");
-        androidDriver.findElement(By.xpath("//*[@id='amountTextField']")).sendKeys("50");
-        androidDriver.findElement(By.xpath("//*[@id='countryButton']")).click();
-        androidDriver.findElement(By.xpath("//*[@text='Switzerland']")).click();
-        androidDriver.findElement(By.xpath("//*[@id='sendPaymentButton']")).click();
-        androidDriver.findElement(By.xpath("//*[@text='Yes']")).click();
-        status = "passed";
-    }
-
-    private void iOSTest() {
-        iosDriver.rotate(ScreenOrientation.PORTRAIT);
-        iosDriver.findElement(By.xpath("//*[@id='usernameTextField']")).sendKeys("company");
-        iosDriver.hideKeyboard();
-        iosDriver.findElement(By.xpath("//*[@id='passwordTextField']")).sendKeys("company");
-        iosDriver.findElement(By.xpath("//*[@id='loginButton']")).click();
-        iosDriver.findElement(By.xpath("//*[@id='makePaymentButton']")).click();
-        iosDriver.findElement(By.xpath("//*[@id='phoneTextField']")).sendKeys("0541234567");
-        iosDriver.findElement(By.xpath("//*[@id='nameTextField']")).sendKeys("Jon Snow");
-        iosDriver.findElement(By.xpath("//*[@id='amountTextField']")).sendKeys("50");
-        iosDriver.findElement(By.xpath("//*[@id='countryButton']")).click();
-        iosDriver.findElement(By.xpath("//*[@id='Switzerland']")).click();
-        iosDriver.findElement(By.xpath("//*[@id='sendPaymentButton']")).click();
-        iosDriver.findElement(By.xpath("//*[@id='Yes']")).click();
-        status = "passed";
     }
 
     private void sendResponseToCloud() {
