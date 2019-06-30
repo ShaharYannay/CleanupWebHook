@@ -31,6 +31,7 @@ public class QuickTest {
     protected IOSDriver<IOSElement> iosDriver = null;
     protected AndroidDriver<AndroidElement> androidDriver = null;
 
+    DesiredCapabilities dc = new DesiredCapabilities();
     private String uid = System.getenv("deviceID");
     private String os = System.getenv("deviceOS");
     private String deviceName = System.getenv("deviceName");
@@ -40,8 +41,6 @@ public class QuickTest {
     private String deviceCategory = System.getenv("deviceCategory");
     private String username = System.getenv("username");
     private String userProject = System.getenv("userProject");
-
-    DesiredCapabilities dc = new DesiredCapabilities();
     private String status = "failed";
     PrintWriter writer = new PrintWriter(deviceName + "_" + uid + ".txt", "UTF-8");
 
@@ -56,6 +55,7 @@ public class QuickTest {
         dc.setCapability("accessKey", accessKey);
         dc.setCapability("releaseDevice", false);
         dc.setCapability("deviceQuery", "@serialnumber='" + uid + "'");
+        dc.setCapability("reportFormat", "xml");
         if (os.equals("iOS")){
             iOSDriver();
         }
@@ -66,7 +66,7 @@ public class QuickTest {
 
     @Test
     public void quickStartNativeDemo() {
-        status="passed";
+        status = "passed";
     }
 
     @After
@@ -104,6 +104,7 @@ public class QuickTest {
             e.printStackTrace();
         }
     }
+
 
     private void sendResponseToCloud() {
         HttpPost post = new HttpPost("https://mastercloud.experitest.com/api/v1/cleanup-finish?deviceId=" + uid + "&status=" + status);
