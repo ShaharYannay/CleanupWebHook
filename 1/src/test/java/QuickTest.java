@@ -81,7 +81,7 @@ public class QuickTest {
             androidDriver.quit();
         }
 
-        sendResponseToCloud();
+//        sendResponseToCloud();
 
         writer.close();
     }
