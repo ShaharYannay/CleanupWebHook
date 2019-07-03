@@ -100,7 +100,7 @@ public class QuickTest {
         dc.setCapability(AndroidMobileCapabilityType.APP_PACKAGE, "com.experitest.ExperiBank");
         dc.setCapability(AndroidMobileCapabilityType.APP_ACTIVITY, ".LoginActivity");
         try {
-            androidDriver = new AndroidDriver<>(new URL("https://mastercloud.experitest.com/wd/hub"), dc);
+            androidDriver = new AndroidDriver<>(new URL("https://qacloud.experitest.com/wd/hub"), dc);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
