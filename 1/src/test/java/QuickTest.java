@@ -27,7 +27,7 @@ import java.net.URL;
 public class QuickTest {
 
 
-    private String accessKey = "eyJ4cC51IjoyLCJ4cC5wIjoxLCJ4cC5tIjoiTVRVMk1UWTBNalkyTlRjMk1BIiwiYWxnIjoiSFMyNTYifQ.eyJleHAiOjE4NzcwMDI2NjUsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.B3ptPrCxbg06_BubE9SQUNzWvDa0iNepN7bqOD0w4C4";
+    private String accessKey = "eyJ4cC51IjoyLCJ4cC5wIjoxLCJ4cC5tIjoiTVRVMU9ESTJOamN3TmpnNU13IiwiYWxnIjoiSFMyNTYifQ.eyJleHAiOjE4NzQ5OTAyNjMsImlzcyI6ImNvbS5leHBlcml0ZXN0In0.Meily9UaEZphq4-FjL60nDvc3Wb0t6DcwGkMVUWG4RQ";
     protected IOSDriver<IOSElement> iosDriver = null;
     protected AndroidDriver<AndroidElement> androidDriver = null;
 
@@ -90,7 +90,7 @@ public class QuickTest {
     private void iOSDriver() {
         dc.setCapability(IOSMobileCapabilityType.BUNDLE_ID, "com.experitest.ExperiBank");
         try {
-            iosDriver = new IOSDriver<>(new URL("https://mastercloud.experitest.com/wd/hub"), dc);
+            iosDriver = new IOSDriver<>(new URL("https://qacloud.experitest.com/wd/hub"), dc);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
@@ -108,7 +108,7 @@ public class QuickTest {
 
 
     private void sendResponseToCloud() {
-        HttpPost post = new HttpPost("https://mastercloud.experitest.com/api/v1/cleanup-finish?deviceId=" + uid + "&status=" + status);
+        HttpPost post = new HttpPost("https://qacloud.experitest.com/api/v1/cleanup-finish?deviceId=" + uid + "&status=" + status);
         post.addHeader(HttpHeaders.AUTHORIZATION, "bearer " + accessKey);
 
         try (CloseableHttpClient httpClient = HttpClients.createDefault();
