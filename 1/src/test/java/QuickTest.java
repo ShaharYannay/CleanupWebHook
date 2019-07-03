@@ -71,7 +71,6 @@ public class QuickTest {
 
     @After
     public void tearDown() {
-        sendResponseToCloud();
 
         if (iosDriver!=null) {
             System.out.println("Report URL: " + iosDriver.getCapabilities().getCapability("reportUrl"));
@@ -81,6 +80,8 @@ public class QuickTest {
             System.out.println("Report URL: " + androidDriver.getCapabilities().getCapability("reportUrl"));
             androidDriver.quit();
         }
+
+        sendResponseToCloud();
 
         writer.close();
     }
